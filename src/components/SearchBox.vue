@@ -1,13 +1,25 @@
 <script>
+import { ref } from 'vue'
+import { useWeatherStore } from '@/stores/weather'
+
 export default {
-  name: 'SearchBox'
+  name: 'SearchBox',
+  setup() {
+    const cityName = ref('')
+    const store = useWeatherStore()
+
+    return {
+      cityName,
+      search: store.searchCity
+    }
+  }
 }
 </script>
 
 <template>
   <div class="location-container">
-    <input type="text" placeholder="City" />
-    <button class="location-button" type="button">
+    <input type="text" placeholder="City" v-model="cityName" />
+    <button class="location-button" type="button" @click="search(cityName)">
       <span>Search</span>
     </button>
   </div>
@@ -16,7 +28,6 @@ export default {
 <style lang="scss" scoped>
 .location-container {
   position: relative;
-  // padding: 8px 16px;
   width: 320px;
   height: 100px;
   grid-area: search;
