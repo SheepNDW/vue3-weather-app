@@ -1,26 +1,35 @@
 <script>
+import { useWeatherStore } from '@/stores/weather'
+import { computed } from 'vue'
+
 export default {
-  name: 'TodayInfo'
+  name: 'TodayInfo',
+  setup() {
+    const store = useWeatherStore()
+
+    const selectedDate = computed(() => store.weekList[store.activeIndex])
+
+    return {
+      selectedDate
+    }
+  }
 }
 </script>
 
 <template>
   <div class="today-info-container">
     <div class="today-info">
-      <!-- percent -->
       <div class="info-box mb-1">
-        <span class="title">降雨率</span>
-        <span class="value">88</span>
+        <span class="title">當日降雨率</span>
+        <span class="value">{{ Math.floor(selectedDate?.pop * 100) }}%</span>
       </div>
-      <!-- humidity -->
       <div class="info-box mb-1">
-        <span class="title">濕度</span>
-        <span class="value">88</span>
+        <span class="title">當日最高溫</span>
+        <span class="value">{{ Math.round(selectedDate?.temp.max) }}°C</span>
       </div>
-      <!-- wind -->
       <div class="info-box">
-        <span class="title">風速</span>
-        <span class="value">88</span>
+        <span class="title">當日最低溫</span>
+        <span class="value">{{ Math.round(selectedDate?.temp.min) }}°C</span>
       </div>
     </div>
   </div>

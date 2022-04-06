@@ -23,7 +23,6 @@ export default {
 .info-side {
   width: 450px;
   padding-top: 25px;
-  margin-right: 10px;
   height: 100%;
   box-sizing: border-box;
   position: relative;
